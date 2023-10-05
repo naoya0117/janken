@@ -5,6 +5,19 @@
     </header>
     <body>
         <h1>Janken GAME!</h1>
-        <p>Hi [[${username}]]</p>
+        <div th:if="${username}">
+            <p>Hi [[${username}]]</p>
+        </div>
+        <div>
+            <a href="/jankengame?hand=Gu">グー</a>
+            <a href="/jankengame?hand=Choki">チョキ</a>
+            <a href="/jankengame?hand=Pa">パー</a>
+        </div>
+        <div th:if="${result}">
+            <p>あなたの手 [[${player_hand}]]</p>
+            <p>相手の手 [[${cpu_hand}]]</p>
+            <p>結果 [[${result}]]</p>
+        </div>
+        
     </body>
 </html>
