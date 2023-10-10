@@ -19,8 +19,7 @@ public class JankenAuthConfiguration {
         .permitAll())
         .logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
-            .permitAll()) // ログアウト後に / にリダイレクト
+            .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(AntPathRequestMatcher.antMatcher("/janken*/**")).authenticated() // /sample3/以下は認証済みであること
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll()); // それ以外は全員アクセス可能
