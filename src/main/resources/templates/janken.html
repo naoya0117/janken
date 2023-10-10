@@ -4,7 +4,14 @@
         <title>janken</title>
     </header>
     <body>
+        <a href="/logout">ログアウト</a>
         <h1>Janken GAME!</h1>
+        <div th:if="${users}">
+            <p>今[[${num_users}]]人がエントリーしています</p>
+            <ul>
+              <li th:each="user : ${users}">[[${user}]]</li>
+            </ul>
+        </div>
         <div th:if="${username}">
             <p>Hi [[${username}]]</p>
         </div>
@@ -18,6 +25,5 @@
             <p>相手の手 [[${cpu_hand}]]</p>
             <p>結果 [[${result}]]</p>
         </div>
-        
     </body>
 </html>
