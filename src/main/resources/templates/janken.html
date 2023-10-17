@@ -17,10 +17,14 @@
             <a href="/jankengame?hand=Choki">チョキ</a>
             <a href="/jankengame?hand=Pa">パー</a>
         </div>
-        <div th:if="${result}">
-            <p>あなたの手 [[${player_hand}]]</p>
-            <p>相手の手 [[${cpu_hand}]]</p>
-            <p>結果 [[${result}]]</p>
+        <div th:each="match:${matches}">
+            <tr>
+                <td>id:[[${match.id}]]</td>
+                <td>user1:[[${match.user1}]]</td>
+                <td>user2:[[${match.user2}]]</td>
+                <td>user1の手:[[${match.user1Hand}]]</td>
+                <td>user2の手:[[${match.user2Hand}]]</td>
+            </tr>
         </div>
     </body>
 </html>
