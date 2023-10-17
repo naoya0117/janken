@@ -1,5 +1,6 @@
 package oit.is.z1992.kaizi.janken.controller;
 
+import oit.is.z1992.kaizi.janken.model.*;
 import org.springframework.ui.ModelMap;
 
 import java.security.Principal;
@@ -10,26 +11,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import oit.is.z1992.kaizi.janken.model.Janken;
-import oit.is.z1992.kaizi.janken.model.User;
-import oit.is.z1992.kaizi.janken.model.UserMapper;
-import oit.is.z1992.kaizi.janken.model.Entry;
-
 @Controller
 public class JankenController {
     @Autowired
     private Entry entry;
     @Autowired
     private UserMapper usermapper;
+    @Autowired
+    private MatchMapper matchmapper;
 
     @GetMapping("/janken")
     public String janken(Principal prin, ModelMap model) {
         String username = prin.getName();
         this.entry.addUser(username);
         ArrayList<User> users = usermapper.selectAllUsers();
-
-        model.addAttribute("users", users);
+        ArrayList<Match> matches = matchmapper.selectAllMatches();
         model.addAttribute("username", username);
+        model.addAttribute("users", users);
+        model.addAttribute("matches", matches);
 
         return "janken.html";
     }
