@@ -22,7 +22,10 @@ public class JankenAuthConfiguration {
             .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(AntPathRequestMatcher.antMatcher("/janken*/**")).authenticated() // /sample3/以下は認証済みであること
-            .requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll()); // それ以外は全員アクセス可能
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll()) // それ以外は全員アクセス可能
+            .csrf((csrf) -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))// h2-consoleはCSRF対策を無効化
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // h2-consoleはX-Frame-Optionsを無効化
+
         return http.build();
   }
 
