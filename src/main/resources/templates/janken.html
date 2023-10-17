@@ -8,16 +8,13 @@
         <a href="/logout">ログアウト</a>
         <h1>Janken GAME!</h1>
         <p>Hi <span sec:authentication="name"/></p>
+        <h2>エントリー</h2>
         <div th:each="user:${users}">
             <ul>
-                <a th:href="@{/match(id=${user.id})}"> [[${user.name}]]</a>
+                <li><a th:href="@{/match(id=${user.id})}"> [[${user.name}]]</a></li>
             </ul>
           </div>
-        <div>
-            <a href="/jankengame?hand=Gu">グー</a>
-            <a href="/jankengame?hand=Choki">チョキ</a>
-            <a href="/jankengame?hand=Pa">パー</a>
-        </div>
+        <h2>試合結果</h2>
         <div th:each="match:${matches}">
             <tr>
                 <td>id:[[${match.id}]]</td>

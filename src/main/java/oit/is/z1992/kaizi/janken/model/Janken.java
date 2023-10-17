@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Janken {
     private String cpu;
-    private String player;
+    private final String player;
 
     public Janken(String player) {
         this.player = player;

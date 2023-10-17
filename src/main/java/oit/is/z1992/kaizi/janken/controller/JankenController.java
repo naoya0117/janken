@@ -1,6 +1,7 @@
 package oit.is.z1992.kaizi.janken.controller;
 
 import oit.is.z1992.kaizi.janken.model.*;
+import org.apache.ibatis.annotations.Insert;
 import org.springframework.ui.ModelMap;
 
 import java.security.Principal;
@@ -38,16 +39,23 @@ public class JankenController {
         model.addAttribute("opponent", opp);
         return "match.html";
     }
-    @GetMapping("/jankengame")
-    public String game(@RequestParam String hand , ModelMap model) {
+    @GetMapping("/fight")
+    public String game(@RequestParam String id, @RequestParam String hand , ModelMap model, Principal prin) {
+        Match match = new Match();
+
         Janken janken = new Janken(hand);
 
-        model.addAttribute("users", this.entry.getUsers());
-        model.addAttribute("num_users", this.entry.getNumUsers());
-        model.addAttribute("player_hand", janken.getPlayer());
-        model.addAttribute("cpu_hand", janken.getCpu());
-        model.addAttribute("result",janken.getResult());
+        match.setUser1(usermapper.selectByName(prin.getName()).getId());
+        match.setUser2(Integer.parseInt(id));
+        match.setUser1Hand(janken.getPlayer());
+        match.setUser2Hand(janken.getCpu());
+        matchmapper.insertMatch(match);
 
-        return "janken.html";
+        model.addAttribute("opponent", usermapper.selectById(id));
+        model.addAttribute("player", janken.getPlayer());
+        model.addAttribute("Cpu", janken.getCpu());
+        model.addAttribute("result", janken.getResult());
+
+        return "match.html";
     }
 }
