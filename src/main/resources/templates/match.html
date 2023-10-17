@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+    <head>
+        <meta charset="UTF-8" />
+        <title>janken</title>
+    </head>
+    <body>
+        <h1>Match</h1>
+        <h2><span sec:authentication="name"/> v.s [[${opponent.name}]]</h2>
+    </body>
+</html>

@@ -26,11 +26,17 @@ public class JankenController {
         this.entry.addUser(username);
         ArrayList<User> users = usermapper.selectAllUsers();
         ArrayList<Match> matches = matchmapper.selectAllMatches();
-        model.addAttribute("username", username);
         model.addAttribute("users", users);
         model.addAttribute("matches", matches);
 
         return "janken.html";
+    }
+
+    @GetMapping("/match")
+    public String match(@RequestParam String id , ModelMap model ) {
+        User opp = usermapper.selectById(id);
+        model.addAttribute("opponent", opp);
+        return "match.html";
     }
     @GetMapping("/jankengame")
     public String game(@RequestParam String hand , ModelMap model) {
