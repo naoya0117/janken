@@ -6,15 +6,12 @@
     <body>
         <a href="/logout">ログアウト</a>
         <h1>Janken GAME!</h1>
-        <div th:if="${users}">
-            <p>今[[${num_users}]]人がエントリーしています</p>
+        <p>Hi [[${username}]]</p>
+        <div th:each="user:${users}">
             <ul>
-              <li th:each="user : ${users}">[[${user}]]</li>
+                <li th:text="${user.name}"></li>
             </ul>
-        </div>
-        <div th:if="${username}">
-            <p>Hi [[${username}]]</p>
-        </div>
+          </div>
         <div>
             <a href="/jankengame?hand=Gu">グー</a>
             <a href="/jankengame?hand=Choki">チョキ</a>
