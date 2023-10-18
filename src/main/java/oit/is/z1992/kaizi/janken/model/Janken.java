@@ -1,51 +1,69 @@
 package oit.is.z1992.kaizi.janken.model;
 
+import org.apache.ibatis.jdbc.Null;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Janken {
-    private String cpu;
-    private final String player;
+    private final String player1;
+    private final String player2;
 
     public Janken(String player) {
-        this.player = player;
-        int rand = new Random().nextInt(3);
+        this.player1 = player;
 
-        switch (rand) {
-            case 0:
-                this.cpu = "Gu";
-                break;
-            case 1:
-                this.cpu = "Choki";
-                break;
-            case 2:
-                this.cpu = "Pa";
-                break;
-        }
+        Map<Integer, String> handMap =  new HashMap<>();
+        handMap.put(1, "Gu");
+        handMap.put(2, "Choki");
+        handMap.put(3, "Pa");
+
+        int key = new Random().nextInt(3) + 1;
+        this.player2 = handMap.get(key);
     }
 
-    public String getResult () {
-        if (this.cpu.equals(this.player)) {
-            return "Draw";
-        }
-        if (this.cpu.equals("Gu") && this.player.equals("Choki") || 
-            this.cpu.equals("Choki") && this.player.equals("Pa") ||
-            this.cpu.equals("Pa") && this.player.equals("Gu")) {
+    public Janken(String player, String cpu) {
+        this.player1 = player;
+        this.player2 = cpu;
+    }
 
-            return "You Lose";
-        } 
-        if (this.cpu.equals("Gu") && this.player.equals("Pa") || 
-            this.cpu.equals("Choki") && this.player.equals("Gu") ||
-            this.cpu.equals("Pa") && this.player.equals("Choki")) {
-
-            return "You Win!";
+    public String getWinner() {
+        if (this.player1.equals(this.player2)) {
+            return null;
         }
+        if (this.player1.equals("Gu") && this.player2.equals("Choki") ||
+                this.player1.equals("Choki") && this.player2.equals("Pa") ||
+                this.player1.equals("Pa") && this.player2.equals("Gu")) {
+            return "user1";
+        }
+        if (this.player2.equals("Gu") && this.player1.equals("Choki") ||
+                this.player2.equals("Choki") && this.player1.equals("Pa") ||
+                this.player2.equals("Pa") && this.player1.equals("Gu")) {
+            return "user2";
+        }
+
         return "Error";
     }
 
-    public String getCpu() {
-        return this.cpu;
+    public String getResult () {
+        String winner = this.getWinner();
+        if (winner == null) {
+            return "Draw";
+        }
+        if (winner.equals("user1")) {
+            return "You Win!";
+        }
+        if (winner.equals("user2")) {
+            return "You Lose";
+        }
+
+        return "Error";
     }
-    public String getPlayer() {
-        return this.player;
+
+    public String getPlayer2() {
+        return this.player2;
+    }
+    public String getPlayer1() {
+        return this.player1;
     }
 }

@@ -15,13 +15,14 @@
             </ul>
           </div>
         <h2>試合結果</h2>
-        <div th:each="match:${matches}">
+        <div th:each="match:${history}">
             <tr>
                 <td>id:[[${match.id}]]</td>
                 <td>user1:[[${match.user1}]]</td>
                 <td>user2:[[${match.user2}]]</td>
                 <td>user1の手:[[${match.user1Hand}]]</td>
                 <td>user2の手:[[${match.user2Hand}]]</td>
+                <td>結果: <span th:text="${match.result}" /></td>
             </tr>
         </div>
     </body>

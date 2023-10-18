@@ -14,8 +14,8 @@
             <a th:href="@{/fight(id=${opponent.id}, hand='Pa')}">パー</a>
         </div>
         <ul th:if="${result}">
-            <li>あなたの手 [[${player}]]</li>
-            <li>相手の手 [[${Cpu}]]</li>
+            <li>あなたの手 [[${player1}]]</li>
+            <li>相手の手 [[${player2}]]</li>
             <li>結果 [[${result}]]</li>
         </ul>
         <a href="janken">戻る</a>
