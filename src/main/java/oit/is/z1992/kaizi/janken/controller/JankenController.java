@@ -14,16 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class JankenController {
     @Autowired
-    private Entry entry;
-    @Autowired
     private UserMapper usermapper;
     @Autowired
     private MatchMapper matchmapper;
 
     @GetMapping("/janken")
-    public String janken(Principal prin, ModelMap model) {
-        String username = prin.getName();
-        this.entry.addUser(username);
+    public String janken(ModelMap model) {
         ArrayList<User> users = usermapper.selectAllUsers();
         ArrayList<Match> matches = matchmapper.selectAllMatches();
 
