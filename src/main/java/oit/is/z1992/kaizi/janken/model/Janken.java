@@ -10,6 +10,10 @@ public class Janken {
     private final String player1;
     private final String player2;
 
+    /**
+     * コンストラクタ
+     * @param player プレイヤーの手 "Gu", "Choki", "Pa"のいずれか
+     */
     public Janken(String player) {
         this.player1 = player;
 
@@ -22,11 +26,19 @@ public class Janken {
         this.player2 = handMap.get(key);
     }
 
-    public Janken(String player, String cpu) {
-        this.player1 = player;
-        this.player2 = cpu;
+    /**
+     * コンストラクタ
+     * @param player1 プレイヤー1の手 "Gu", "Choki", "Pa"のいずれか
+     * @param player2 プレイヤー2の手 "Gu", "Choki", "Pa"のいずれか
+     */
+    public Janken(String player1, String player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
+    /**
+     * @return 勝者の名前 "user1", "user2", nullのいずれか
+     */
     public String getWinner() {
         if (this.player1.equals(this.player2)) {
             return null;
@@ -45,6 +57,9 @@ public class Janken {
         return "Error";
     }
 
+    /**
+     * @return 結果 "You Win!", "You Lose", "Draw"のいずれか
+     */
     public String getResult () {
         String winner = this.getWinner();
         if (winner == null) {

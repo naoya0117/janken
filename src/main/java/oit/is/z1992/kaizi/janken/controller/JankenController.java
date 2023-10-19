@@ -65,6 +65,9 @@ public class JankenController {
     }
 }
 
+/**
+ * じゃんけんの結果を格納するクラス
+ */
 class Result extends Match {
     private String result;
 
