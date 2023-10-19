@@ -83,6 +83,7 @@ class Result extends Match {
         }
     }
 
-    public void setResult(String result) { this.result = result; };
-    public String getResult() { return this.result; };
+    public void setResult(String result) { this.result = result; }
+
+    public String getResult() { return this.result; }
 }
