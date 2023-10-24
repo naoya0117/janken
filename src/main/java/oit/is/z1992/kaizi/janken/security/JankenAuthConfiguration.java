@@ -33,12 +33,10 @@ public class JankenAuthConfiguration {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user1 = User.withUsername("user1")
-            .password("{bcrypt}$2y$10$034f2PjUvNwrYmPy2BuMi.TX6L1SF24RAR4Lu.aB.ZZzIaWC0q.Pm").roles("USER").build();
-        UserDetails user2 = User.withUsername("user2")
-            .password("{bcrypt}$2y$10$cTPHVC7w/hmBOWz2661VJO9xj3mQJS/NIwrjzA6BCPNE1zXmLgjIm").roles("USER").build();
-        UserDetails user3 = User.withUsername("ほんだ")
+        UserDetails user1 = User.withUsername("ほんだ")
             .password("{bcrypt}$2y$10$BNhpo4r5fAh5txCMnLJ37utoacKm8IyAF7XkhOtWQTBPHyZX0TR4G").roles("USER").build();
-        return new InMemoryUserDetailsManager(user1, user2, user3);
+        UserDetails user2 = User.withUsername("いがき")
+                .password("{bcrypt}$2y$10$Fx/Fd68TFzaAvEnTigBoAuEQaaS5rvb3qTsTW5K0ZdwSr5b7SjkTW").roles("USER").build();
+        return new InMemoryUserDetailsManager(user1, user2);
     }
 }
