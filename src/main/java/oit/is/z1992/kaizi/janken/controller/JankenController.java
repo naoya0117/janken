@@ -1,5 +1,6 @@
 package oit.is.z1992.kaizi.janken.controller;
 
+import jakarta.websocket.server.PathParam;
 import oit.is.z1992.kaizi.janken.model.*;
 import org.springframework.ui.ModelMap;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -17,19 +19,24 @@ public class JankenController {
     private UserMapper usermapper;
     @Autowired
     private MatchMapper matchmapper;
+    @Autowired
+    private MatchInfoMapper matchinfomapper;
 
     @GetMapping("/janken")
     public String janken(ModelMap model) {
         ArrayList<User> users = usermapper.selectAllUsers();
         ArrayList<Match> matches = matchmapper.selectAllMatches();
-
+        ArrayList<MatchInfo> activeMatches = matchinfomapper.selectActiveMatches();
         ArrayList<Result> results  = new ArrayList<>();
+
         for (Match match : matches) {
             Result result = new Result(match);
             results.add(result);
         }
         model.addAttribute("users", users);
         model.addAttribute("history", results);
+
+        model.addAttribute("activematches", activeMatches);
 
         return "janken.html";
     }
@@ -40,6 +47,24 @@ public class JankenController {
         model.addAttribute("opponent", opp);
         return "match.html";
     }
+
+
+    @GetMapping("/wait")
+    public String wait(@RequestParam String id, @RequestParam String hand, ModelMap model, Principal prin) {
+        String user1name = prin.getName();
+        int user1 = usermapper.selectByName(user1name).getId();
+        int user2 = Integer.parseInt(id);
+
+        MatchInfo matchinfo = new MatchInfo();
+        matchinfo.setUser1(user1);
+        matchinfo.setUser2(user2);
+        matchinfo.setUser1Hand(hand);
+        matchinfo.setActive(true);
+        matchinfomapper.insertMatchInfo(matchinfo);
+
+        return "wait.html";
+    }
+
     @GetMapping("/fight")
     public String game(@RequestParam String id, @RequestParam String hand , ModelMap model, Principal prin) {
         Match match = new Match();

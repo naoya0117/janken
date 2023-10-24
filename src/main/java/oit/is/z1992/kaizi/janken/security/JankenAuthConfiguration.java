@@ -24,6 +24,7 @@ public class JankenAuthConfiguration {
             .requestMatchers(AntPathRequestMatcher.antMatcher("/janken*/**")).authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/match/**")).authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/fight/**")).authenticated()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/wait/**")).authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll()) // それ以外は全員アクセス可能
             .csrf((csrf) -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))// h2-consoleはCSRF対策を無効化
             .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin())); // h2-consoleはX-Frame-Optionsを無効化
