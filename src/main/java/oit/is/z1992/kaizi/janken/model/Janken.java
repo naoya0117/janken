@@ -9,6 +9,7 @@ import java.util.Random;
 public class Janken {
     private final String player1;
     private final String player2;
+    private final String winner;
 
     /**
      * コンストラクタ
@@ -17,13 +18,14 @@ public class Janken {
     public Janken(String player) {
         this.player1 = player;
 
-        Map<Integer, String> handMap =  new HashMap<>();
+        Map<Integer, String> handMap = new HashMap<>();
         handMap.put(1, "Gu");
         handMap.put(2, "Choki");
         handMap.put(3, "Pa");
 
         int key = new Random().nextInt(3) + 1;
         this.player2 = handMap.get(key);
+        this.winner = this.calcWinner();
     }
 
     /**
@@ -34,12 +36,13 @@ public class Janken {
     public Janken(String player1, String player2) {
         this.player1 = player1;
         this.player2 = player2;
+        this.winner = calcWinner();
     }
 
     /**
      * @return 勝者の名前 "user1", "user2", nullのいずれか
      */
-    public String getWinner() {
+    public String calcWinner() {
         if (this.player1.equals(this.player2)) {
             return null;
         }
@@ -80,5 +83,9 @@ public class Janken {
     }
     public String getPlayer1() {
         return this.player1;
+    }
+
+    public String getWinner() {
+        return this.winner;
     }
 }
