@@ -1,7 +1,37 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>wait</title>
+    <meta charset="UTF-8"/>
+    <script>
+        window.onload = function () {
+            var sse = new EventSource('/sse');
+            sse.onmessage = function (event) {
+                console.log(event.data);
+                var result = JSON.parse(event.data);
+                var keys = ["id", "user1", "user2", "user1Hand", "user2Hand", "result"];
+                var result_table = "<tr>" + keys.map(key => `<td>${key}: ${result[key]}</td>`).join('') + "</tr>";
+
+                var tbody = document.getElementById("result_table");
+                tbody.innerHTML = result_table;
+
+                var result_header = document.getElementById("result_header");
+                result_header.innerHTML = "試合結果";
+                var back_link = document.getElementById("back_link");
+                back_link.innerHTML = "戻る";
+            }
+        }
+    </script>
+</head>
 <body>
 <h1>相手の手を待っています</h1>
 <p>Hi <span sec:authentication="name"></span></p>
+<div>
+    <h2 id="result_header"></h2>
+    <table>
+        <tbody id="result_table"></tbody>
+    </table>
+    <a href="/janken" id="back_link"></a>
+</div>
 </body>
 </html>
